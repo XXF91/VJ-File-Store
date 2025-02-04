@@ -34,26 +34,19 @@ def get_size(size):
         size /= 1024.0
     return "%.2f %s" % (size, units[i])
 
+
 def format_file_name(file_name):
     chars = ["[", "]", "(", ")"]
     
-    # إزالة الأحرف غير المرغوب فيها
     for c in chars:
-        file_name = file_name.replace(c, "")
-
-    # تصفية الكلمات غير المرغوب فيها
-    filtered_words = [
-        word for word in file_name.split() 
-        if not (word.startswith('http') or word.startswith('@') or word.startswith('www.'))
-    ]
-
-    # إعادة بناء اسم الملف مع البادئة المطلوبة
-    file_name = '@S_S0F ' + ' '.join(filtered_words)
+        file_name = file_name.replace(c, "")  # إصلاح الاستبدال
+    
+    file_name = '@S_S0F ' + ' '.join(
+        filter(lambda x: not (x.startswith('http') or x.startswith('@') or x.startswith('www.')), file_name.split())
+    )
 
     return file_name
-# Don't Remove Credit Tg - @S_S0F
-# Subscribe YouTube Channel For Amazing Bot https://t.me/X_XF8
-# Ask Doubt on telegram @KingVJ0
+
 
 
 @Client.on_message(filters.command("start") & filters.incoming)
